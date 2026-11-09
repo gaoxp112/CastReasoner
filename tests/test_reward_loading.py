@@ -1,8 +1,8 @@
 """Exercise the actual VeRL callback loader, including dataclass module registration."""
 
 from verl.utils.import_utils import load_extern_object
-from castmind.rewards import compute_score
-from castmind.train import compose_config
+from castreasoner.rewards import compute_score
+from castreasoner.train import compose_config
 
 
 def test_resolved_reward_loads_through_verl():

@@ -28,7 +28,7 @@ def validate_prompt(text: str, prior=None) -> None:
         pattern += (r"(?P<" + part + r">.*?)") if index % 2 else re.escape(part)
     match = re.fullmatch(pattern, text.strip(), re.DOTALL)
     if match is None:
-        raise ValueError("prepared prompt differs from castmind/prompt.txt")
+        raise ValueError("prepared prompt differs from castreasoner/prompt.txt")
     for key in ("task_definition", "observed_rows", "forecast_rows"):
         if not match.group(key).strip() or match.group(key).strip() == "{" + key + "}":
             raise ValueError(f"prompt field {key} is empty or still a placeholder")

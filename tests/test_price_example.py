@@ -8,11 +8,11 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from castmind.dataio import read_rows, write_rows
-from castmind.evaluate import evaluate
-from castmind.infer import forecast_rows
-from castmind.prepare_price import read_raw, split_windows, window_row, chronos_prior, distill
-from castmind.sad import SADScore
+from castreasoner.dataio import read_rows, write_rows
+from castreasoner.evaluate import evaluate
+from castreasoner.infer import forecast_rows
+from castreasoner.prepare_price import read_raw, split_windows, window_row, chronos_prior, distill
+from castreasoner.sad import SADScore
 
 
 RAW = Path(__file__).parents[1] / "examples/price/raw.csv"
@@ -64,9 +64,9 @@ def test_chronos_receives_only_available_future_covariates():
 
 
 def test_distillation_roundtrip_and_evaluation(tmp_path, monkeypatch):
-    import castmind.teacher_api as api
-    import castmind.infer as inference
-    import castmind.sad as sad
+    import castreasoner.teacher_api as api
+    import castreasoner.infer as inference
+    import castreasoner.sad as sad
 
     rows = make_rows()
     for name in ("train", "validation", "test"):
@@ -107,7 +107,7 @@ def test_distillation_roundtrip_and_evaluation(tmp_path, monkeypatch):
 
 
 def test_metrics_use_all_gt_and_equal_window_weights():
-    from castmind.metrics import aggregate_sample_metrics
+    from castreasoner.metrics import aggregate_sample_metrics
     records = [
         {"ground_truth": [0., 2.], "prediction": [1., 3.], "evaluation_dataset": "Price", "metric_group": "one", "attr": "price"},
         {"ground_truth": [4.], "prediction": [7.], "evaluation_dataset": "Price", "metric_group": "one", "attr": "price"},
@@ -124,7 +124,7 @@ def test_metrics_use_all_gt_and_equal_window_weights():
 
 
 def test_single_domain_profile_does_not_weaken_paper_profile():
-    from castmind.train import compose_config, launch_command
+    from castreasoner.train import compose_config, launch_command
     for stage in ("sft", "grpo"):
         c = compose_config(stage, "model", "train.parquet", "out", "val.parquet", profile="price-example", gpus=1, max_steps=1)
         assert c.trainer.n_gpus_per_node == 1

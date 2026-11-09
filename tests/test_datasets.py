@@ -8,13 +8,13 @@ import unittest
 from omegaconf import OmegaConf
 import pandas as pd
 
-from castmind.datasets import (
+from castreasoner.datasets import (
     PreparedRLHFDataset,
     PreparedSFTDataset,
     prompt_response_prefix,
     tokenize_sft_messages,
 )
-from castmind.prompt import render_prompt
+from castreasoner.prompt import render_prompt
 
 
 def prompt():
@@ -138,11 +138,11 @@ class PreparedDatasetTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "unsupported"):
             prompt_response_prefix(UnsupportedTokenizer(), self.messages[:-1])
 
-    @unittest.skipUnless(os.environ.get("CASTMIND_TEST_TOKENIZER"), "set CASTMIND_TEST_TOKENIZER for a real tokenizer")
+    @unittest.skipUnless(os.environ.get("CASTREASONER_TEST_TOKENIZER"), "set CASTREASONER_TEST_TOKENIZER for a real tokenizer")
     def test_real_qwen_thinking_template(self):
         from transformers import AutoTokenizer
 
-        tokenizer = AutoTokenizer.from_pretrained(os.environ["CASTMIND_TEST_TOKENIZER"], local_files_only=True)
+        tokenizer = AutoTokenizer.from_pretrained(os.environ["CASTREASONER_TEST_TOKENIZER"], local_files_only=True)
         row = tokenize_sft_messages(tokenizer, self.messages, 20000)
         prefix = prompt_response_prefix(tokenizer, self.messages[:-1])
         self.assertEqual(prefix, "<think>\n")

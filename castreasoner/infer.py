@@ -5,9 +5,9 @@ import hashlib
 import json
 from pathlib import Path
 
-from castmind.contract import parse_response
-from castmind.dataio import read_rows, write_json
-from castmind.prompt import validate_prompt
+from castreasoner.contract import parse_response
+from castreasoner.dataio import read_rows, write_json
+from castreasoner.prompt import validate_prompt
 
 
 def load_model(model_path, device="cuda"):
@@ -27,7 +27,7 @@ def load_model(model_path, device="cuda"):
 
 def generate_response(model, tokenizer, messages, *, max_new_tokens=2048, max_length=17048):
     import torch
-    from castmind.sad import _ids
+    from castreasoner.sad import _ids
 
     rendered = tokenizer.apply_chat_template(
         messages, tokenize=False, add_generation_prompt=True, enable_thinking=True,

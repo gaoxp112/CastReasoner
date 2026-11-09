@@ -9,7 +9,7 @@ import types
 import numpy as np
 import pytest
 
-from castmind import rewards
+from castreasoner import rewards
 
 
 def response(values, decision="revise", analysis="Future calendar evidence supports this forecast.", method="Correct the supported level change."):

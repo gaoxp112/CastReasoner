@@ -21,7 +21,7 @@ python -m pip install torch==2.10.0 vllm==0.18.1 packaging ninja
 MAX_JOBS=4 python -m pip install flash-attn==2.8.3 --no-build-isolation
 python -m pip install -e '.[train,example]'
 hf download BAAI/bge-m3 --local-dir models/bge-m3
-export CASTMIND_ENCODER_PATH="$PWD/models/bge-m3"
+export CASTREASONER_ENCODER_PATH="$PWD/models/bge-m3"
 cp examples/price/teachers.example.json examples/price/teachers.local.json
 ```
 
@@ -48,12 +48,12 @@ MAX_STEPS=1 TRAIN_WINDOWS=4 VALIDATION_WINDOWS=1 TEST_WINDOWS=1 bash scripts/run
 ## Individual stages
 
 ```bash
-python -m castmind.prepare_price convert --csv examples/price/raw.csv --output-dir outputs/price/data
-python -m castmind.prepare_price distill --output-dir outputs/price/data \
+python -m castreasoner.prepare_price convert --csv examples/price/raw.csv --output-dir outputs/price/data
+python -m castreasoner.prepare_price distill --output-dir outputs/price/data \
   --student-model Qwen/Qwen3.5-0.8B --teacher-config examples/price/teachers.local.json
-python -m castmind.infer --model /path/to/exported/hf_model \
+python -m castreasoner.infer --model /path/to/exported/hf_model \
   --data outputs/price/data/test_windows.parquet --output outputs/price/predictions.jsonl
-python -m castmind.evaluate --data outputs/price/data/test_windows.parquet \
+python -m castreasoner.evaluate --data outputs/price/data/test_windows.parquet \
   --predictions outputs/price/predictions.jsonl --output-dir outputs/price/evaluation
 ```
 

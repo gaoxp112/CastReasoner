@@ -17,7 +17,7 @@ from typing import Any
 
 import numpy as np
 
-from castmind.contract import parse_response
+from castreasoner.contract import parse_response
 
 
 FORMAT_PENALTY = 1.0
@@ -254,7 +254,7 @@ def _get_encoder():
     from sentence_transformers import SentenceTransformer
 
     encoder = SentenceTransformer(
-        os.environ.get("CASTMIND_ENCODER_PATH", ENCODER_NAME),
+        os.environ.get("CASTREASONER_ENCODER_PATH", ENCODER_NAME),
         device="cpu", local_files_only=True,
     )
     encoder.eval()

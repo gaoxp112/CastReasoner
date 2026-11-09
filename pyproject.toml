@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "castmind"
+name = "castreasoner"
 version = "0.1.0"
 description = "Core supervised and GRPO training for evidence-grounded time series forecasting"
 readme = "README.md"
@@ -31,7 +31,7 @@ dev = ["pytest>=8", "build>=1"]
 example = ["chronos-forecasting==2.3.2"]
 
 [tool.setuptools.packages.find]
-include = ["castmind*"]
+include = ["castreasoner*"]
 
 [tool.setuptools.package-data]
-castmind = ["prompt.txt", "configs/*.yaml"]
+castreasoner = ["prompt.txt", "configs/*.yaml"]

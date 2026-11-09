@@ -8,9 +8,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from castmind.contract import parse_response
-from castmind.dataio import read_rows, write_json, write_rows
-from castmind.prompt import render_prompt, validate_prompt
+from castreasoner.contract import parse_response
+from castreasoner.dataio import read_rows, write_json, write_rows
+from castreasoner.prompt import render_prompt, validate_prompt
 
 
 TARGET = "zonal_price"
@@ -146,7 +146,7 @@ def convert(args):
 
 
 def _cached_completion(teacher, messages, cache_dir, kind):
-    from castmind.teacher_api import complete
+    from castreasoner.teacher_api import complete
 
     identity = {"teacher": teacher, "messages": messages, "kind": kind}
     digest = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
@@ -160,10 +160,10 @@ def _cached_completion(teacher, messages, cache_dir, kind):
 
 def distill(args):
     from concurrent.futures import ThreadPoolExecutor
-    from castmind.infer import load_model
-    from castmind.sad import TrajectoryCandidate, score_teacher_response, select_trajectory
-    from castmind.teacher_api import load_config
-    from castmind.rewards import validate_metadata
+    from castreasoner.infer import load_model
+    from castreasoner.sad import TrajectoryCandidate, score_teacher_response, select_trajectory
+    from castreasoner.teacher_api import load_config
+    from castreasoner.rewards import validate_metadata
 
     config = load_config(args.teacher_config)
     model, tokenizer = load_model(args.student_model, args.device)

@@ -30,7 +30,7 @@ def compose_config(stage, model, train_file, output_dir, val_file=None, *, profi
         config.actor_rollout_ref.model.path = model
         # Import as a registered package: VeRL's anonymous file loader does not
         # register modules, which breaks dataclasses with postponed annotations.
-        config.reward.custom_reward_function.path = "pkg://castmind.rewards"
+        config.reward.custom_reward_function.path = "pkg://castreasoner.rewards"
     if profile not in {"paper", "price-example"}:
         raise ValueError("unknown training profile")
     if gpus < 1:
@@ -66,8 +66,8 @@ def _validate_file(stage, filename, tokenizer, data_config, training, profile="p
     from collections import Counter
     import pandas as pd
 
-    from castmind.datasets import PreparedRLHFDataset, PreparedSFTDataset, _plain
-    from castmind.rewards import validate_metadata
+    from castreasoner.datasets import PreparedRLHFDataset, PreparedSFTDataset, _plain
+    from castreasoner.rewards import validate_metadata
 
     path = Path(filename).expanduser()
     if not path.is_file() or path.suffix != ".parquet":
@@ -101,7 +101,7 @@ def _validate_file(stage, filename, tokenizer, data_config, training, profile="p
 def preflight(stage, config):
     """Fail before distributed startup on malformed inputs or token boundaries."""
     from transformers import AutoTokenizer
-    from castmind.rewards import _get_encoder
+    from castreasoner.rewards import _get_encoder
 
     for filename in (config.data.train_files, config.data.val_files):
         if filename and (not Path(filename).is_file() or Path(filename).suffix != ".parquet"):
@@ -132,8 +132,8 @@ def launch_command(stage, config_path, gpus=4):
     # The resolved config includes environment-specific paths without shell interpolation.
     args += [f"+launch_config={json.dumps(str(config_path))}"]
     if stage == "sft":
-        return [sys.executable, "-m", "torch.distributed.run", "--standalone", f"--nproc_per_node={gpus}", "-m", "castmind.sft", *args]
-    return [sys.executable, "-m", "castmind.grpo", *args]
+        return [sys.executable, "-m", "torch.distributed.run", "--standalone", f"--nproc_per_node={gpus}", "-m", "castreasoner.sft", *args]
+    return [sys.executable, "-m", "castreasoner.grpo", *args]
 
 
 def main():

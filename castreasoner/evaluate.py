@@ -5,9 +5,9 @@ import hashlib
 import json
 from pathlib import Path
 
-from castmind.contract import parse_response
-from castmind.dataio import read_rows, write_json
-from castmind.metrics import aggregate_sample_metrics
+from castreasoner.contract import parse_response
+from castreasoner.dataio import read_rows, write_json
+from castreasoner.metrics import aggregate_sample_metrics
 
 
 def evaluate(rows, predictions):

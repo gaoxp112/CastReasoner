@@ -97,7 +97,7 @@ trainer:
   total_training_steps: null
   n_gpus_per_node: 4
   nnodes: 1
-  project_name: CastMind
+  project_name: CastReasoner
   experiment_name: grpo
   default_local_dir: ???
   logger: [console]

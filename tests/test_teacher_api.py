@@ -5,12 +5,12 @@ import json
 
 import pytest
 
-from castmind.teacher_api import complete, load_config
+from castreasoner.teacher_api import complete, load_config
 
 
 @pytest.mark.parametrize("provider", ["openai", "anthropic"])
 def test_provider_messages_and_credentials(monkeypatch, provider):
-    import castmind.teacher_api as api
+    import castreasoner.teacher_api as api
     monkeypatch.setenv("TEST_TEACHER_KEY", "test-only-value")
     messages = [{"role": "user", "content": "forecast-time inputs only"}]
     teacher = {"name": "test", "model": "configured-model", "provider": provider,

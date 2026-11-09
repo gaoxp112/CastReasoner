@@ -5,7 +5,7 @@ from omegaconf import OmegaConf
 from verl.trainer.sft_trainer import SFTTrainer
 
 
-class CastMindSFTTrainer(SFTTrainer):
+class CastReasonerSFTTrainer(SFTTrainer):
     def _build_dataloader(self):
         super()._build_dataloader()
         # Upstream DistributedSampler otherwise defaults to seed 0.
@@ -20,7 +20,7 @@ def main(config):
     resolved = OmegaConf.load(config.launch_config)
     initialize_global_process_group()
     try:
-        CastMindSFTTrainer(config=resolved).fit()
+        CastReasonerSFTTrainer(config=resolved).fit()
     finally:
         destroy_process_group()
 

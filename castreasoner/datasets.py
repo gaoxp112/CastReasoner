@@ -9,8 +9,8 @@ import torch
 from torch.utils.data import Dataset
 from verl.utils.dataset.rl_dataset import RLHFDataset
 
-from castmind.contract import parse_response
-from castmind.prompt import validate_prompt
+from castreasoner.contract import parse_response
+from castreasoner.prompt import validate_prompt
 
 
 def _plain(value):
@@ -120,7 +120,7 @@ class PreparedSFTDataset(Dataset):
 
     def __init__(self, parquet_files, tokenizer, config, processor=None, max_samples=-1):
         if config.get("truncation", "error") != "error":
-            raise ValueError("CastMind requires truncation=error")
+            raise ValueError("CastReasoner requires truncation=error")
         if config.get("pad_mode", "no_padding") != "no_padding":
             raise ValueError("PreparedSFTDataset requires pad_mode=no_padding")
         if isinstance(parquet_files, (str, Path)):
@@ -165,7 +165,7 @@ class PreparedRLHFDataset(RLHFDataset):
 
     def __init__(self, data_files, tokenizer, config, processor=None, max_samples=-1):
         if config.get("truncation", "error") != "error":
-            raise ValueError("CastMind requires truncation=error")
+            raise ValueError("CastReasoner requires truncation=error")
         if config.get("filter_overlong_prompts", False):
             raise ValueError("overlong prompts must raise an error rather than be filtered")
         if config.get("apply_chat_template_kwargs", {}).get("enable_thinking") is not True:

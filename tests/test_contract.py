@@ -2,8 +2,8 @@
 
 import pytest
 
-from castmind.contract import parse_response
-from castmind.prompt import render_prompt, validate_prompt
+from castreasoner.contract import parse_response
+from castreasoner.prompt import render_prompt, validate_prompt
 
 
 def output(think, rows="0 | -0.125\n1 | 2e-6"):

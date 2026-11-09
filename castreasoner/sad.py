@@ -114,7 +114,7 @@ def score_teacher_response(
 
     A fast tokenizer with ``return_offsets_mapping`` is required so visible
     reasoning tokens can be assigned to the three paper fields.  The response
-    must follow CastMind's canonical ``<think>`` contract.
+    must follow CastReasoner's canonical ``<think>`` contract.
     """
     if not isinstance(response, str) or not response.strip():
         raise ValueError("teacher response must be a nonempty string")

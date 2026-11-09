@@ -4,7 +4,7 @@ import torch
 import os
 import pytest
 
-from castmind.sad import (
+from castreasoner.sad import (
     SADScore,
     TokenDifficulty,
     TrajectoryCandidate,
@@ -88,11 +88,11 @@ def test_selection_uses_sad_only_for_close_same_strategy_candidates():
     ]).candidate_id == "accurate"
 
 
-@pytest.mark.skipif(not os.environ.get("CASTMIND_TEST_TOKENIZER"), reason="set CASTMIND_TEST_TOKENIZER")
+@pytest.mark.skipif(not os.environ.get("CASTREASONER_TEST_TOKENIZER"), reason="set CASTREASONER_TEST_TOKENIZER")
 def test_teacher_forcing_real_qwen_tokenizer_includes_chat_boundaries():
     from transformers import AutoTokenizer
 
-    tokenizer = AutoTokenizer.from_pretrained(os.environ["CASTMIND_TEST_TOKENIZER"], local_files_only=True)
+    tokenizer = AutoTokenizer.from_pretrained(os.environ["CASTREASONER_TEST_TOKENIZER"], local_files_only=True)
 
     class Uniform(torch.nn.Module):
         def __init__(self):
