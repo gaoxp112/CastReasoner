@@ -2,6 +2,9 @@
 
 CastReasoner is an evidence-grounded framework for context-aware time series forecasting. It analyzes observed history and available future covariates, then chooses to retain, revise, or reconstruct a forecast prior to produce the final forecast. Training consists of supervised fine-tuning (SFT) followed by GRPO reinforcement learning.
 
+- **Model weights:** [CastReasoner-Model on Hugging Face](https://huggingface.co/Gaoxp-USTC/CastReasoner-Model).
+- **Data and teacher trajectories:** [CastReasoner-Datasets on Hugging Face](https://huggingface.co/datasets/Gaoxp-USTC/CastReasoner-Datasets).
+
 ## Environment setup
 
 Use Python 3.10 or newer with CUDA-enabled PyTorch. The default training configuration targets four H100 80GB GPUs.
@@ -26,7 +29,7 @@ export CASTREASONER_ENCODER_PATH="$PWD/models/bge-m3"
 
 ## Running CastReasoner
 
-Provide your own model and prepared Parquet training files compatible with [the dataset adapters](castreasoner/datasets.py), or prepare the Price example below. Prepared training data and model weights are not included. The main model is Qwen3.5-9B; Qwen3.5-4B uses the same commands with a different model path.
+For training, provide a model and prepared Parquet files compatible with [the dataset adapters](castreasoner/datasets.py), or prepare the Price example below. The main backbone is Qwen3.5-9B; Qwen3.5-4B uses the same commands with a different model path.
 
 A runnable [Price example](examples/price/README.md) includes raw CSV observations, CSV-to-Parquet preparation using four configurable teacher APIs, and a single-command SFT → GRPO → inference → evaluation script. After installing `.[train,example]` and configuring the teacher APIs and encoder, run `bash scripts/run_price.sh`.
 
